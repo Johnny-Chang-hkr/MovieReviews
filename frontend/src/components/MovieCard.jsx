@@ -1,8 +1,8 @@
 import { Star, User, Quote, Trash2Icon } from "lucide-react";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { formatDate } from "../lib/utils";
+import api from "../lib/axios";
 
 const MovieCard = ({ movie, setMovies }) => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const MovieCard = ({ movie, setMovies }) => {
 
     try {
       // Use movie._id directly since it's available in the scope
-      await axios.delete(`http://localhost:5001/api/movies/${movie._id}`);
+      await api.delete(`/movies/${movie._id}`);
       
       toast.success("Review deleted successfully");
       

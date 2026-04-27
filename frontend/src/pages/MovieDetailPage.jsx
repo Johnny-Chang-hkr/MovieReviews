@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router";
 import { ArrowLeftIcon, StarIcon, UserIcon, Quote, CalendarIcon, Loader2, SaveIcon, Edit3Icon, XIcon } from "lucide-react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { formatDate } from "../lib/utils";
+import api from "../lib/axios";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -26,7 +26,7 @@ const MovieDetailPage = () => {
     const fetchMovieData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5001/api/movies/${id}`);
+        const response = await api.get(`/movies/${id}`);
         const data = response.data;
         
         setMovie(data);
@@ -56,7 +56,7 @@ const MovieDetailPage = () => {
         opinion: editOpinion,
       };
 
-      await axios.put(`http://localhost:5001/api/movies/${id}`, updatedMovie);
+      await api.put(`/movies/${id}`, updatedMovie);
       
       toast.success("Changes saved successfully!");
       setMovie({ ...movie, ...updatedMovie }); 
